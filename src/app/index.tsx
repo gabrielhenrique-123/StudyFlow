@@ -26,20 +26,37 @@ export default function Index(){
     }
   }
 
-  async function list(){
-    try{
+  async function verify() {
+    try {
+      const response = await userDatabase.searchVerify(user, password);
       
-    }catch(error){
+      if (response && response.user === user && response.password === password) {
+        Alert.alert("Login encontrado");
+      } else {
+        Alert.alert("Login não encontrado");
+      }
+    } catch (error) {
+      console.log("Erro ao verificar login:", error);
+    }
+  }
+  
+
+  async function update(){
+    try{
+      const response = await userDatabase.create({name, cpf, user, password});
+
+      Alert.alert("Usuário Cadastrado com o ID: " + response.inserteRowId)
+    } catch(error){
       console.log(error)
     }
   }
 
-  return <View style = {{flex: 1, justifyContent: "center", gap: 16, padding: 32}}>
-    <Input placeholder="Nome" onChangeText={setName} value = {name}/>
-    <Input placeholder="CPF" onChangeText={setCPF} value = {cpf}/>
-    <Input placeholder="Usuário" onChangeText={setUser} value = {user}/>
-    <Input placeholder="Senha" onChangeText={setPassword} value = {password}/>
-    <Button title="Cadastrar" onPress={create}/>
-    <Button title="Login" onPress={() => router.navigate("/screens/login")}/>
-  </View>
+  return (
+    <View style = {{flex: 1, justifyContent: "center", gap: 16, padding: 32}}>
+      <Input placeholder="Usuário" onChangeText={setUser} value = {user}/>
+      <Input placeholder="Senha" onChangeText={setPassword} value = {password}/>
+      <Button title="Login" onPress={() => {router.navigate("./screens/home")}}/>
+      <Button title = "Cadastro" onPress={() => {router.navigate("./screens/singUp")}}/>
+    </View>
+  )
 }

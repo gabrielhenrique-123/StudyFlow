@@ -9,5 +9,18 @@ export async function initializeDatabase(database:SQLiteDatabase){
 			user TEXT NOT NULL,
 			password TEXT NOT NULL
 		);
+		CREATE TABLE IF NOT EXISTS tests (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			name TEXT NOT NULL,
+			subject TEXT NOT NULL,
+			date TEXT NOT NULL
+		);
+		CREATE TABLE IF NOT EXISTS assingments (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			name TEXT NOT NULL,
+			subject TEXT NOT NULL,
+			description TEXT NOT NULL,
+			date TEXT NOT NULL
+		);
 	`)
 }

@@ -32,17 +32,15 @@ export function useUserDatabase(){
     }
   }
 
-  async function searchByName(name: string){
+  async function searchVerify(user: string, password: string){
     try{
-      const query = "SELECT * FROM users WHERE name LIKE ?"
-
-      const response = await database.getAllAsync<UserDatabase>(query, `%${name}%`)
-
-      return response
+      const query = "SELECT * FROM users WHERE user = ? AND password = ?"
+      const response = await database.getFirstAsync<UserDatabase>(query, [user, password]);
+      return response;
     }catch(error){
       throw error
     } 
   }
   
-  return {create, searchByName}    
+  return {create, searchVerify}    
 }
