@@ -12,18 +12,21 @@ export default function HomeScreen() {
       <View style={styles.datesButton}>
         <TouchableOpacity
           style={styles.button}
+          onPress={() => router.navigate("./home/tests")}
         >
           <Text style={styles.buttonText}>Provas</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.button}
+          onPress={() => router.navigate("./home/assingments")}
         >
           <Text style={styles.buttonText}>Trabalhos</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.button}
+          onPress={() => router.navigate("./home/schedule")}
         >
           <Text style={styles.buttonText}>Horário</Text>
         </TouchableOpacity>

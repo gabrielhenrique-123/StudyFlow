@@ -20,7 +20,7 @@ export default function Index(){
     try{
       const response = await userDatabase.create({name, cpf, user, password});
 
-      Alert.alert("Usuário Cadastrado com o ID: " + response.inserteRowId)
+      Alert.alert("Usuário Cadastrado com o ID: " + response.insertedRowId)
     } catch(error){
       console.log(error)
     }
