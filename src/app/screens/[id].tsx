@@ -2,7 +2,8 @@ import { useState, useEffect } from "react"
 import { View, Text } from "react-native"
 import { useLocalSearchParams } from "expo-router"
 
-import { useTestDatabase, useUserDatabase } from "../database/useUserDatabase"
+import { useTestDatabase, TestsDatabase } from '../../app/database/useTestDatabase';
+import { useAssignmentsDatabase } from "../../app/database/useAssignmentsDatabase"
 
 export default function Details() {
   const [data, setData] = useState({
@@ -11,17 +12,17 @@ export default function Details() {
     date: "",
   })
 
-  const productDatabase = useTestDatabase()
+  const testsDatabase = useTestDatabase()
   const params = useLocalSearchParams<{ id: string }>()
 
   useEffect(() => {
     if (params.id) {
-      productDatabase.show(Number(params.id)).then((response) => {
+      testsDatabase.show(Number(params.id)).then((response) => {
         if (response) {
           setData({
             name: response.name,
             subject: response.subject,
-            date: response.date,
+            date: response.date
           })
         }
       })
@@ -37,6 +38,7 @@ export default function Details() {
       <Text style={{ fontSize: 32 }}>Materia: {data.subject}</Text>
 
       <Text style={{ fontSize: 32 }}>Nome: {data.name}</Text>
+
     </View>
   )
 }

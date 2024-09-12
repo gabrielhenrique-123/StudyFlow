@@ -4,24 +4,24 @@ import { router } from "expo-router";
 import { Input } from "@/components/input";
 import { Test } from "@/components/test";
 
-import { useTestDatabase, TestsDatabase } from "@/app/database/useTestDatabase";
+import { useAssignmentsDatabase, AssignmentsDatabase } from "@/app/database/useAssignmentsDatabase";
 
-
-export default function Tests(){
+export default function Assigments(){
   const [id, setId] = useState("")
   const [name, setName] = useState("")
   const [subject, setSubject] = useState("")
   const [date, setDate] = useState("")
+  const [description, setDescription] = useState("")
   const [search, setSearch] = useState("")
-  const [tests, setTests] = useState<TestsDatabase[]>([])
+  const [assignments, setAssignments] = useState<AssignmentsDatabase[]>([])
 
-  const testDatabase = useTestDatabase();
+  const assignmentsDatabase = useAssignmentsDatabase();
 
   async function create() {
     try {
-      const response = await testDatabase.createTests({name, subject, date})
+      const response = await assignmentsDatabase.createAssignments({name, subject, date, description})
 
-      Alert.alert("Teste cadastrado com o ID: " + response.inserteRowId)
+      Alert.alert("Trabalho cadastrado com o ID: " + response.inserteRowId)
     } catch (error) {
       console.log(error)
     }
@@ -29,11 +29,12 @@ export default function Tests(){
 
   async function update() {
     try {
-      const response = await testDatabase.update({
+      const response = await assignmentsDatabase.update({
         id: Number(id),
         name,
         subject,
         date,
+        description
       })
 
       Alert.alert("Produto atualizado!")
@@ -44,8 +45,8 @@ export default function Tests(){
 
   async function list() {
     try {
-      const response = await testDatabase.searchByName(search)
-      setTests(response)
+      const response = await assignmentsDatabase.searchByName(search)
+      setAssignments(response)
     } catch (error) {
       console.log(error)
     }
@@ -53,27 +54,26 @@ export default function Tests(){
 
   async function remove(id: number) {
     try {
-      await testDatabase.remove(id)
+      await assignmentsDatabase.remove(id)
       await list()
     } catch (error) {
       console.log(error)
     }
   }
 
-  async function edit(id: number) {
-    // Navega para a tela de edição, passando o ID do teste
-    router.navigate({
-      pathname: "../editTest",
-      params: { id: String(id) },
-    });
-  }
-  
-
-  function details(item: TestsDatabase) {
+  function details(item: AssignmentsDatabase) {
     setId(String(item.id))
     setName(item.name)
     setSubject(item.subject)
     setDate(item.date)
+  }
+
+  async function edit(id: number) {
+    // Navega para a tela de edição, passando o ID do teste
+    router.navigate({
+      pathname: "../editAssignment",
+      params: { id: String(id) },
+    });
   }
 
   async function handleSave() {
@@ -87,6 +87,7 @@ export default function Tests(){
     setName("")
     setSubject("")
     setDate("")
+    setDescription("")
     await list()
   }
 
@@ -109,12 +110,18 @@ export default function Tests(){
         value={date}
       />
 
+      <Input
+        placeholder="Descrição"
+        onChangeText={setDescription}
+        value={description}
+      />
+
       <Button title="Salvar" onPress={handleSave} />
 
       <Input placeholder="Pesquisar" onChangeText={setSearch} />
 
       <FlatList
-        data={tests}
+        data={assignments}
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => (
           <Test
@@ -122,7 +129,7 @@ export default function Tests(){
             onPress={() => details(item)}
             onDelete={() => remove(item.id)}
             onEdit={() => edit(item.id)}
-            onOpen={() => router.navigate("../" + item.id)}
+            onOpen={() => router.navigate("../../" + item.id)}
           />
         )}
         contentContainerStyle={{ gap: 16 }}

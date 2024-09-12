@@ -15,12 +15,12 @@ export async function initializeDatabase(database:SQLiteDatabase){
 			subject TEXT NOT NULL,
 			date TEXT NOT NULL
 		);
-		CREATE TABLE IF NOT EXISTS assingments (
+		CREATE TABLE IF NOT EXISTS assignments (
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
 			name TEXT NOT NULL,
 			subject TEXT NOT NULL,
-			description TEXT NOT NULL,
-			date TEXT NOT NULL
+			date TEXT NOT NULL,
+			description TEXT NOT NULL
 		);
 	`)
 }

@@ -19,7 +19,7 @@ export default function HomeScreen() {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.navigate("./home/assingments")}
+          onPress={() => router.navigate("./home/assignments")}
         >
           <Text style={styles.buttonText}>Trabalhos</Text>
         </TouchableOpacity>

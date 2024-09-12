@@ -1,18 +1,20 @@
 import { Pressable, PressableProps, Text, TouchableOpacity } from "react-native"
 import { MaterialIcons } from "@expo/vector-icons"
+import Assigments from '../app/screens/home/assignments';
 
 type Props = PressableProps & {
   data: {
     name: string
     subject: string
     date: string
+    description: string
   }
   onDelete: () => void
   onOpen: () => void
   onEdit: () => void
 }
 
-export function Test({ data, onDelete, onOpen, onEdit, ...rest }: Props) {
+export function Assigment({ data, onDelete, onOpen, onEdit, ...rest }: Props) {
   return (
     <Pressable
       style={{
