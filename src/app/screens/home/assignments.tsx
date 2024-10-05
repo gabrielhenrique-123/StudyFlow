@@ -21,7 +21,7 @@ export default function Assigments(){
     try {
       const response = await assignmentsDatabase.createAssignments({name, subject, date, description})
 
-      Alert.alert("Trabalho cadastrado com o ID: " + response.inserteRowId)
+      Alert.alert(name + " de " + subject + " foi adicionado, com data para " + date)
     } catch (error) {
       console.log(error)
     }

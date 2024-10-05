@@ -21,7 +21,7 @@ export default function Tests(){
     try {
       const response = await testDatabase.createTests({name, subject, date})
 
-      Alert.alert("Teste cadastrado com o ID: " + response.inserteRowId)
+      Alert.alert(name + " de " + subject + " foi adicionado, com data para " + date)
     } catch (error) {
       console.log(error)
     }
